@@ -1,0 +1,79 @@
+services:
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: iot-postgres
+    environment:
+      POSTGRES_DB: iotdb
+      POSTGRES_USER: iotuser
+      POSTGRES_PASSWORD: iotpass
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U iotuser -d iotdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  data-loader:
+    build: ./data-loader
+    container_name: iot-loader
+    volumes:
+      - ./data-loader:/data
+    environment:
+      DB_HOST: postgres
+      DB_NAME: iotdb
+      DB_USER: iotuser
+      DB_PASS: iotpass
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  rest-service:
+    build: ./rest-service
+    container_name: iot-rest
+    environment:
+      DB_HOST: postgres
+      DB_NAME: iotdb
+      DB_USER: iotuser
+      DB_PASS: iotpass
+      PORT: 3001
+    ports:
+      - "3001:3001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  grpc-service:
+    build: ./grpc-service
+    container_name: iot-grpc
+    environment:
+      DB_HOST: postgres
+      DB_NAME: iotdb
+      DB_USER: iotuser
+      DB_PASS: iotpass
+    ports:
+      - "50051:50051"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  graphql-service:
+    build: ./graphql-service
+    container_name: iot-graphql
+    environment:
+      DB_HOST: postgres
+      DB_NAME: iotdb
+      DB_USER: iotuser
+      DB_PASS: iotpass
+    ports:
+      - "4000:4000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

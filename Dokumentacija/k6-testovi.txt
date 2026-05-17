@@ -1,0 +1,225 @@
+REST TEST 
+
+C:\Users\ThinkPad T14s\Documents\Fax\4 godina\8 SEMESTAR\IoT\Projekat1>"C:\Program Files\k6\k6.exe" run k6-tests/rest-test.js
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: k6-tests/rest-test.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 500 max VUs, 2m10s max duration (incl. graceful stop):
+              * default: Up to 500 looping VUs for 1m40s over 4 stages (gracefulRampDown: 30s, gracefulStop: 30s)
+
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✗ 'p(95)<3000' p(95)=33.15s
+
+    http_req_failed
+    ✗ 'rate<0.05' rate=62.35%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 1429   10.986369/s
+    checks_succeeded...: 37.64% 538 out of 1429
+    checks_failed......: 62.35% 891 out of 1429
+
+    ✗ A - status 201
+      ↳  51% — ✓ 320 / ✗ 307
+    ✗ B - status 200
+      ↳  36% — ✓ 190 / ✗ 333
+    ✗ C - status 200
+      ↳  10% — ✓ 28 / ✗ 251
+
+    HTTP
+    http_req_duration..............: avg=16.23s min=3.28ms med=17.39s max=59.19s p(90)=26.19s p(95)=33.15s
+      { expected_response:true }...: avg=6.63s  min=3.28ms med=4.1s   max=36.21s p(90)=17s    p(95)=18.62s
+    http_req_failed................: 62.35% 891 out of 1429
+    http_reqs......................: 1429   10.986369/s
+
+    EXECUTION
+    iteration_duration.............: avg=42.67s min=1.33s  med=45.38s max=1m6s   p(90)=56.45s p(95)=58.48s
+    iterations.....................: 276    2.12193/s
+    vus............................: 3      min=1           max=500
+    vus_max........................: 500    min=500         max=500
+
+    NETWORK
+    data_received..................: 2.6 MB 20 kB/s
+    data_sent......................: 313 kB 2.4 kB/s
+
+
+
+
+running (2m10.1s), 000/500 VUs, 276 complete and 351 interrupted iterations
+default ✓ [======================================] 000/500 VUs  1m40s
+ERRO[0149] thresholds on metrics 'http_req_duration, http_req_failed' have been crossed 
+
+
+
+
+
+GRAPHQL TEST
+
+
+C:\Users\ThinkPad T14s\Documents\Fax\4 godina\8 SEMESTAR\IoT\Projekat1>"C:\Program Files\k6\k6.exe" run k6-tests/graphql-test.js
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: k6-tests/graphql-test.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 500 max VUs, 2m10s max duration (incl. graceful stop):
+              * default: Up to 500 looping VUs for 1m40s over 4 stages (gracefulRampDown: 30s, gracefulStop: 30s)
+
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✗ 'p(95)<3000' p(95)=40.68s
+
+    http_req_failed
+    ✓ 'rate<0.05' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 792     6.0926/s
+    checks_succeeded...: 100.00% 792 out of 792
+    checks_failed......: 0.00%   0 out of 792
+
+    ✓ A - status 200
+    ✓ B - status 200
+    ✓ C - status 200
+
+    HTTP
+    http_req_duration..............: avg=18.85s min=57.26ms med=13.63s max=48.99s p(90)=38.11s p(95)=40.68s
+      { expected_response:true }...: avg=18.85s min=57.26ms med=13.63s max=48.99s p(90)=38.11s p(95)=40.68s
+    http_req_failed................: 0.00%  0 out of 792
+    http_reqs......................: 792    6.0926/s
+
+    EXECUTION
+    iteration_duration.............: avg=33.75s min=4.28s   med=31.11s max=1m14s  p(90)=1m2s   p(95)=1m11s 
+    iterations.....................: 125    0.961585/s
+    vus............................: 14     min=0        max=500
+    vus_max........................: 500    min=427      max=500
+
+    NETWORK
+    data_received..................: 4.4 MB 34 kB/s
+    data_sent......................: 387 kB 3.0 kB/s
+
+
+
+
+running (2m10.0s), 000/500 VUs, 125 complete and 468 interrupted iterations
+default ✓ [======================================] 000/500 VUs  1m40s
+ERRO[0134] thresholds on metrics 'http_req_duration' have been crossed 
+
+
+
+GRPC TEST
+
+
+C:\Users\ThinkPad T14s\Documents\Fax\4 godina\8 SEMESTAR\IoT\Projekat1>"C:\Program Files\k6\k6.exe" run k6-tests/grpc-test.js
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: k6-tests/grpc-test.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 500 max VUs, 2m10s max duration (incl. graceful stop):
+              * default: Up to 500 looping VUs for 1m40s over 4 stages (gracefulRampDown: 30s, gracefulStop: 30s)
+
+
+
+  █ THRESHOLDS 
+
+    grpc_req_duration
+    ✗ 'p(95)<3000' p(95)=33.62s
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 823     6.329409/s
+    checks_succeeded...: 100.00% 823 out of 823
+    checks_failed......: 0.00%   0 out of 823
+
+    ✓ A - status OK
+    ✓ B - status OK
+    ✓ C - status OK
+
+    EXECUTION
+    iteration_duration...: avg=38.18s min=12.05s   med=36.5s  max=1m16s  p(90)=1m6s   p(95)=1m11s 
+    iterations...........: 95     0.730612/s
+    vus..................: 34     min=0      max=499
+    vus_max..............: 500    min=36     max=500
+
+    NETWORK
+    data_received........: 2.4 MB 18 kB/s
+    data_sent............: 274 kB 2.1 kB/s
+
+    GRPC
+    grpc_req_duration....: avg=24.55s min=144.55ms med=31.12s max=40.89s p(90)=33.33s p(95)=33.62s
+
+
+
+
+running (2m10.0s), 000/500 VUs, 95 complete and 478 interrupted iterations
+default ✓ [======================================] 000/500 VUs  1m40s
+ERRO[0141] thresholds on metrics 'grpc_req_duration' have been crossed 
+
+
+
+
+
+
+REST servis:
+- avg latencija:  16.23s
+- p95 latencija:  33.15s
+- RPS:            10.99/s
+- greške:         62.35%
+
+GraphQL servis:
+- avg latencija:  18.85s
+- p95 latencija:  40.68s
+- RPS:            6.09/s
+- greške:         0.00%
+
+gRPC servis:
+- avg latencija:  24.55s
+- p95 latencija:  33.62s
+- RPS:            6.33/s
+- greške:         0.00%
+
+Metrika          REST      GraphQL   gRPC
+avg latencija    16.23s    18.85s    24.55s
+p95 latencija    33.15s    40.68s    33.62s
+RPS              10.99/s   6.09/s    6.33/s
+greške           62.35%    0.00%     0.00%
+
+
+
+
+
+

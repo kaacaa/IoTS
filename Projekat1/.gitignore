@@ -1,0 +1,71 @@
+# ========================
+# .NET / ASP.NET Core
+# ========================
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.dll
+*.pdb
+*.exe
+*.nupkg
+publish/
+out/
+
+# ========================
+# Python
+# ========================
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+.pytest_cache/
+proto_gen/
+
+# ========================
+# Node.js
+# ========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm/
+.yarn/
+
+# ========================
+# Docker
+# ========================
+postgres_data/
+
+# ========================
+# Dataset (prevelik za Git)
+# ========================
+*.csv
+*.parquet
+*.json.gz
+
+# ========================
+# OS fajlovi
+# ========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ========================
+# IDE
+# ========================
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# ========================
+# k6 rezultati
+# ========================
+k6-results/
+*.html

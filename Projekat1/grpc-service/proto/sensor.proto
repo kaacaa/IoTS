@@ -1,0 +1,58 @@
+syntax = "proto3";
+package sensor;
+
+service SensorService {
+  rpc IngestReading        (ReadingRequest)   returns (ReadingResponse);
+  rpc GetSelectiveReadings (SelectiveRequest) returns (ReadingsListResponse);
+  rpc GetAggregates        (AggregateRequest) returns (AggregateListResponse);
+}
+
+message ReadingRequest {
+  string device_id = 1;
+  double co        = 2;
+  double humidity  = 3;
+  bool   light     = 4;
+  double lpg       = 5;
+  bool   motion    = 6;
+  double smoke     = 7;
+  double temp      = 8;
+}
+
+message ReadingResponse {
+  int64  id = 1;
+  string ts = 2;
+}
+
+message SelectiveRequest {
+  string device_id = 1;
+  int32  limit     = 2;
+}
+
+message SensorReading {
+  string ts       = 1;
+  double temp     = 2;
+  double humidity = 3;
+}
+
+message ReadingsListResponse {
+  repeated SensorReading readings = 1;
+}
+
+message AggregateRequest {
+  string device_id = 1;
+  string from_ts   = 2;
+  string to_ts     = 3;
+}
+
+message AggregateData {
+  string hour         = 1;
+  double avg_temp     = 2;
+  double avg_humidity = 3;
+  double avg_co       = 4;
+  double avg_smoke    = 5;
+  int64  num_readings = 6;
+}
+
+message AggregateListResponse {
+  repeated AggregateData aggregates = 1;
+}

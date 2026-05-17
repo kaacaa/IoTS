@@ -1,0 +1,133 @@
+REST 
+
+
+scenario a
+http://localhost:3001/readings
+
+201
+Created
+603 ms
+222 B
+
+
+(scenario B)
+http://localhost:3001/readings/selective?device_id=b8:27:eb:bf:9d:51
+
+200
+OK
+694 ms
+6.47 KB
+
+
+scenario c
+http://localhost:3001/readings/aggregate?device_id=b8:27:eb:bf:9d:51&from=2020-07-12&to=2026-05-17
+
+200
+OK
+9.02 s
+39.6 KB
+
+
+
+
+
+GRAPHQL 
+
+
+scenario a
+
+200
+OK
+1.82 s
+367 B
+
+
+scenario b
+
+200
+OK
+511 ms
+5.28 KB
+
+
+scenario c
+
+200
+OK
+3.03 s
+26.21 KB
+
+
+
+
+
+GRPC
+
+
+scenario a
+
+0 OK
+374.41 ms
+
+Protobuf enkoduje ovo kao binarni format koji je mnogo manji od JSON-a. Aproksimacija:
+
+JSON verzija ovog odgovora: ~60 B
+Protobuf verzija: ~25 B
+
+
+scenario b
+
+{
+  "device_id": "b8:27:eb:bf:9d:51",
+  "limit": 100
+}
+
+0 OK
+77.35 ms
+
+
+scenario c
+
+{
+  "device_id": "b8:27:eb:bf:9d:51",
+  "from_ts": "2020-07-12",
+  "to_ts": "2026-05-17"
+}
+
+0 OK
+2.91 s
+
+
+
+
+
+
+Scenario A (upis — 1 red):
+REST     (JSON):    222 B
+GraphQL  (JSON):    367 B
+gRPC     (Protobuf): ~25 B  ← aproksimacija
+
+Scenario B (100 redova, 2 polja):
+REST     (JSON):    6.47 KB
+GraphQL  (JSON):    5.28 KB
+gRPC     (Protobuf): ~2.2 KB ← aproksimacija (6.47 * 0.35)
+
+Scenario C (agregacije, ~190 sati):
+REST     (JSON):    39.6 KB
+GraphQL  (JSON):    26.21 KB
+gRPC     (Protobuf): ~13.5 KB ← aproksimacija (39.6 * 0.35)
+
+
+
+
+
+Ključni zaključci za dokumentaciju
+Scenario A: gRPC drastično manji od REST i GraphQL jer Protobuf ne šalje nazive polja
+Scenario B: GraphQL manji od REST jer klijent traži samo ts, temp, humidity — nema ostalih 7 polja. Ovo je anti over-fetching poenta GraphQL-a
+Scenario C: GraphQL ponovo manji od REST jer smo tražili samo 4 od 6 polja agregacija
+
+
+
+
+
+
